@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS products (
+  id BIGSERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  category TEXT NOT NULL DEFAULT 'Maquillage',
+  description TEXT NOT NULL DEFAULT '',
+  price NUMERIC(10,2) NOT NULL CHECK (price >= 0),
+  stock INTEGER NOT NULL DEFAULT 0 CHECK (stock >= 0),
+  image_url TEXT NOT NULL DEFAULT '',
+  active BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS orders (
+  id BIGSERIAL PRIMARY KEY,
+  customer_name TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  address TEXT NOT NULL,
+  items JSONB NOT NULL,
+  total NUMERIC(10,2) NOT NULL,
+  status TEXT NOT NULL DEFAULT 'Nouvelle',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
